@@ -1,0 +1,4 @@
+{"_id":{"$oid":"58d158bce7c96714a806aacf"},"subject":"Joe owns a dog","content":"Dogs are man's best friend","likes":60.0,"year":2015.0,"language":"english"}
+{"_id":{"$oid":"58d158bce7c96714a806aad0"},"subject":"Dogs eat cats and dog eats pigeons too","content":"Cats are not evil","likes":30.0,"year":2015.0,"language":"english"}
+{"_id":{"$oid":"58d158bde7c96714a806aad1"},"subject":"Cats eat rats","content":"Rats do not cook food","likes":55.0,"year":2014.0,"language":"english"}
+{"_id":{"$oid":"58d158bde7c96714a806aad2"},"subject":"Rats eat Joe","content":"Joe ate a rat","likes":75.0,"year":2014.0,"language":"english"}

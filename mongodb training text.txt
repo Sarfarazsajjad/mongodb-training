@@ -1,0 +1,62 @@
+mongodb
+
+show dbs
+
+create new or use one of the databases with use command
+
+use <database name>
+
+show collections inside a database with show collections command
+
+do find operation on one of the collections with db.<collection name>.find()
+
+the only difference between json and bson is that there are quotation marks on both key and value in bson and only value on json
+
+db.<collection name>.find().pretty()
+
+create collection
+
+db.createCollection(“cars”)
+
+insert into collection
+
+db.cars.insert({
+	name : 'honda',
+	make : 'accord',
+	yeay : '2010'
+})
+
+update
+
+db.cars.update(
+	{
+		name: 'honda'
+	},
+	{
+		$set:{
+			name: 'ford'
+		}
+	}
+)
+
+add something new to the document
+
+db.cars.update(
+	{
+		name: 'ford'
+	},
+	{
+		$set:{
+			transmission: 'automatic'
+		}
+	},
+	{
+		$upsert:true
+	}
+)
+
+db.car.remove({
+	name: 'ford'
+})
+
+for(var i = 0; i < 10; i++){db.things.insert({"x": i})}

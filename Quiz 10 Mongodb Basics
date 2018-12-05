@@ -1,0 +1,55 @@
+Quiz 2
+
+Question 1:
+The db.collection.distinct() can find the unique distinct field value across documents in a single collection or in Multiple Collections matching the search pattern.Is this True?
+
+Ans: No
+It works for single collection .Please Visit the MongoDB Documentation page for more info 
+
+Question 2:
+The collection method 'db.collection.count()'  cannot take a Query as an argument to filter, out only the documents required.We need to use this along with find method to filter documents.
+
+Is this True?
+
+Ans: No
+It has a Query Parameter itself. Please Visit the MongoDB Documentation page for more info
+
+Question 3:
+The collection method 'findone()' returns a single document when no query is mentioned as the parameter or will return multiple documents if a Query is mentioned in the parameter
+
+Ans: No
+It always returns a single document.Please Visit the MongoDB Documentation page for more info
+
+Question 4:
+The collection method 'db.collection.insertOne()' can only insert one document at a time. 
+
+So we need to use db.collection.insertMany() method for multiple inserts.
+Is this True?
+
+Ans: Yes
+
+Question 5:
+The collection method 'insert()' will create a collection , if it doesnt exits in the beginning.Is this True?.
+
+Ans: Yes
+
+Question 6:
+Using the projection parameter in the find method, we cannot filter out the _id field, so we have to do that in the programming language[Like java ,C#] JSON manipulation we use. Is this True?
+
+Ans: No
+It can be easily filtered out . Please visit the link https://docs.mongodb.com/manual/reference/method/db.collection.find/#find-projection
+
+Question 7:
+The main disadvantage of find method is that we cant find using _id field as it is auto-generated and is used for internal processing of data.
+Is this True?
+
+Ans: Nope. Its Easy. Use ObjectId() for this kind of Query.Please visit the below MongoDB Documentation page link https://docs.mongodb.com/manual/reference/method/db.collection.find/#find-projection
+
+Question 8:
+The db.collection.findAndModify(document) method, which is used to find ,modify and return a single document, the 'new: <boolean>,' option can be used to return the updated new Document.
+
+Is this correct?
+
+Ans: Yes
+Its a handy option . Please visit the mongodb documentation for more info. https://docs.mongodb.com/manual/reference/method/db.collection.findAndModify/
+

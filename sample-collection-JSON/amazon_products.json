@@ -1,0 +1,19 @@
+{"_id":{"$oid":"58cd5df3e7c96714a806aa5e"},"name":"Amazon Echo","price":179,"category":"Electronics"}
+{"_id":{"$oid":"58cd5df3e7c96714a806aa5f"},"name":"Boogie Board","price":26,"category":"Electronics"}
+{"_id":{"$oid":"58cd5df3e7c96714a806aa60"},"name":"Michael Kors Women's Parker Gold-Tone Watch MK2249 ","price":135,"category":"Watches"}
+{"_id":{"$oid":"58cd5df3e7c96714a806aa61"},"name":"G-Shock GA-100BW-1A White and Black Series Luxury Watch - Black","price":66,"category":"Watches"}
+{"_id":{"$oid":"58cd5df3e7c96714a806aa62"},"name":"G-Shock GD-120 Military Black Sports Stylish Watch - Black","price":61,"category":"Watches"}
+{"_id":{"$oid":"58cd5df3e7c96714a806aa63"},"name":"Timex Expedition Grid Shock ","price":67,"category":"Watches"}
+{"_id":{"$oid":"58cd5df3e7c96714a806aa64"},"name":"SEIKO SVAS003 Swimming Master  ","price":141,"category":"Watches"}
+{"_id":{"$oid":"58cd5df3e7c96714a806aa65"},"name":"Michael Kors Watches Parker Women's Watch","price":157,"category":"Watches"}
+{"_id":{"$oid":"58cd5df3e7c96714a806aa66"},"name":"Michael Kors MKT5000 Digital","price":395,"category":"Watches"}
+{"_id":{"$oid":"58cd5df3e7c96714a806aa67"},"name":"Michael Kors Access Touch Screen Black Bradshaw Smartwatch MKT5005","price":350,"category":"Watches"}
+{"_id":{"$oid":"58cd5df3e7c96714a806aa68"},"name":"Michael Kors Watches Lexington ","price":207,"category":"Watches"}
+{"_id":{"$oid":"58cd5df3e7c96714a806aa69"},"name":"Seiko Mens Stainless Steel Dress Watch","price":256,"category":"Watches"}
+{"_id":{"$oid":"58cd5df3e7c96714a806aa6a"},"name":"Casio Men's PAG240-1CR ","price":150,"category":"Watches"}
+{"_id":{"$oid":"58cd5df3e7c96714a806aa6b"},"name":"Amazon Dot","price":49,"category":"Electronics"}
+{"_id":{"$oid":"58cd5df3e7c96714a806aa6c"},"name":"Raspberry Pi 3 The No-Nonsense Guide","price":24,"category":"Books"}
+{"_id":{"$oid":"58cd5df3e7c96714a806aa6d"},"name":"Gameplan: The Complete Strategy Guide","price":18,"category":"Books"}
+{"_id":{"$oid":"58cd5df3e7c96714a806aa6e"},"name":"The 5 Love Languages: The Secret to Love that Lasts","price":9,"category":"Books"}
+{"_id":{"$oid":"58cd5df3e7c96714a806aa6f"},"name":"Doctor Strange [Blu-ray]","price":22,"category":"Movies"}
+{"_id":{"$oid":"58cd5df3e7c96714a806aa70"},"name":"Logan (BD+DVD+DHD) [Blu-ray]","price":19,"category":"Movies"}

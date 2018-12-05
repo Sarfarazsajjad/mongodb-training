@@ -1,0 +1,60 @@
+Question 1:
+This Query db.inventory.find( { qty: { $in: [ 5, 15 ] } } ) finds the documents in the collection inventory, having qty as 5 and 15.
+
+Is this correct?
+
+Ans: No . $in is similar to $or operator. So it selects either 5 or 15 Please visit the MongoDB Documentation page for more info https://docs.mongodb.com/manual/reference/operator/query/in/
+
+Question 2:
+When performing  equality checks on the same field,$in operator is more preferable than $or operator. Is this True?
+
+Ans: Yes, Please visit the MongoDB Documentation page for more info https://docs.mongodb.com/manual/reference/operator/query/in/
+
+Question 3:
+In this Query using $not operator, the result will have two types of documents
+
+1. Documents with the price field value is less than or equal to 1.99 
+2. Documents without price field
+
+
+db.inventory.find( { price: { $not: { $gt: 1.99 } } } )
+
+Is this True?
+
+Ans: True, Please visit the documentation page of $not operator for more details https://docs.mongodb.com/manual/reference/operator/query/not/
+
+Question 4:
+In this Query using $lte operator, the result will have two types of documents
+
+1. Documents with the qty field value is less than or equal to 20
+2. Documents without qty field
+db.inventory.find( { qty: { $lte: 20 } } )
+
+Is this true?
+
+Ans: No. It wont resturn documents without qty field, contrary to the $not operator. Please visit the documentation page of $lte operator for more details https://docs.mongodb.com/manual/reference/operator/query/lte/
+
+Question 5:
+This Query will produce   the _id field in the result. Is this True?
+
+db.products.find( { qty: { $gt: 25 } }, { item: 1, qty: 1 } )
+
+Ans: Yes, _id is not specifically filtered out in the above Query. Please visit the documentation page for more info https://docs.mongodb.com/manual/reference/method/db.collection.find/
+
+Question 6:
+In the Query result of the below query all the fields will appear in the result except the _id and the Qty Field . Is this correct?
+
+db.products.find( { qty: { $gt: 25 } }, { _id: 0, qty: 0 } )
+
+Ans: Yes, Because _id and Qty are explicitly filtered out. Please visit the documentation page of find method for more info https://docs.mongodb.com/manual/reference/method/db.collection.find/
+
+Question 7:
+db.bios.find().sort( { name: 1 } ).limit( 5 )
+
+db.bios.find().limit( 5 ).sort( { name: 1 } )
+
+
+The two statements produce equal results.
+Is this True?
+
+Ans: Yes.The order of limit() and the sort() methods is not significant. Please visit the documentation page of find method for more info https://docs.mongodb.com/manual/reference/method/db.collection.find/

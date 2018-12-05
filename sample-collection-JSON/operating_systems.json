@@ -1,0 +1,5 @@
+{"_id":"100a","version":"xp","year":1998}
+{"_id":"100b","version":"vista","year":2007}
+{"_id":"100c","version":"7","year":2009}
+{"_id":"100","os":"windows","company":"Microsoft","versions":["100a","100b","100c"]}
+{"_id":"1001","os":"windows","company":"Microsoft","versions":[{"version":"xp","year":1998},{"version":"Vista","year":2007},{"version":"7","year":2009}]}

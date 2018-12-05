@@ -1,0 +1,27 @@
+Question 1:
+Using $length array Operator, we can find documents with arrays with the number of elements specified.
+
+ans: 
+Nope. Its $size array Operator. More detailsi at https://docs.mongodb.com/manual/reference/operator/query/size/#op._S_size
+
+Question 2:
+$all Array Operator is similar to $or operation .Selects all documents where the array has even a single element matching the values passed in the $all operator.
+
+Is this Right?
+
+ans:
+No, Its the opposite way. Its like $and operation. Selects complete matching. Visit https://docs.mongodb.com/manual/reference/operator/query/all/ for more info on this.
+
+Question 3:
+$elemMatch operator supports  multiple queries,so documents with array fields, with atleast one element matching the specified Queries will be returned.
+
+ans:
+yes, You can get more info about $elemMatch here https://docs.mongodb.com/manual/reference/operator/query/elemMatch/#op._S_elemMatch
+
+Question 4:
+We cannot pass multiple Query conditions[Compound Filter Conditions on the Array Elements] to find method. For that we have to use  $elemMatch operator .
+
+Is this Correct?
+
+ans:
+Nope. You can pass multiple Query criteria to find method.More details here https://docs.mongodb.com/manual/tutorial/query-arrays/

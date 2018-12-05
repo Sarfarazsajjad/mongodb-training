@@ -1,0 +1,201 @@
+mongodb
+
+show dbs
+
+create new or use one of the databases with use command
+
+use <database name>
+
+show collections inside a database with show collections command
+
+do find operation on one of the collections with db.<collection name>.find()
+
+the only difference between json and bson is that there are quotation marks on both key and value in bson and only value on json
+
+db.<collection name>.find().pretty()
+
+create collection
+
+db.createCollection(“cars”)
+
+insert into collection
+
+db.cars.insert({
+	name : 'honda',
+	make : 'accord',
+	yeay : '2010'
+})
+
+update
+
+db.cars.update(
+	{
+		name: 'honda'
+	},
+	{
+		$set:{
+			name: 'ford'
+		}
+	}
+)
+
+add something new to the document
+
+db.cars.update(
+	{
+		name: 'ford'
+	},
+	{
+		$set:{
+			transmission: 'automatic'
+		}
+	},
+	{
+		$upsert:true
+	}
+)
+
+db.cars.remove({
+	name: 'ford'
+})
+
+for(var i = 0; i < 10; i++){db.things.insert({"x": i})}
+
+
+---------------------------------------------------------
+
+db.student.insert({
+    name: 'Joe',
+    undergrad: true,
+    units: 9,
+    classes: ['geography', 'math', 'journalism']
+})
+
+db.student.insert({
+    name: 'Jane',
+    undergrad: false,
+    units: 12,
+    classes: ['geography', 'science', 'journalism', 'history']
+})
+
+db.student.insert({
+    name: 'Kevin',
+    undergrad: true,
+    units: 3,
+    classes: ['geography']
+})
+
+db.student.insert({
+    name: 'Rachel',
+    undergrad: false,
+    units: 6,
+    classes: ['geography', 'history']
+})
+
+db.student.find({})
+db.student.find({'name': 'Rachel'})
+db.student.find({units: {$gt: 6}})
+db.student.find({units: {$lt: 7}})
+db.student.find({classes: {$in: ['history']}})
+
+db.student.find({classes: {$in: ['history']}}).sort({units: -1})    // ascending
+db.student.find({}).sort({name: 1})    // descending
+
+db.student.find({}).sort({name: 1}).limit(2)
+
+
+----------
+Data Import
+----------
+
+mongoimport --db northwind --collection territories --type csv --file territories.csv --headerline
+mongoimport --db northwind --collection employees --type csv --file employees.csv --headerline
+mongoimport --db northwind --collection categories --type csv --file categories.csv --headerline
+mongoimport --db northwind --collection customers --type csv --file customers.csv --headerline
+mongoimport --db northwind --collection employee-territories --type csv --file employee-territories.csv --headerline
+
+
+----------
+Querying
+----------
+
+db.regions.find({RegionDescription:"Northern"})
+db.regions.find({RegionDescription:"Northern",RegionID:3})
+db.regions.find({RegionDescription:"Northern",RegionID:3},{_id:0})
+db.regions.find({RegionDescription:"Northern",RegionID:3},{_id:0,RegionID:0})
+db.regions.find({RegionDescription:"Northern",RegionID:3},{_id:false,RegionID:0})
+
+Count
+-----
+db.regions.find({RegionDescription:"Northern",RegionID:3},{_id:false,RegionID:0}).count()
+db.regions.find().count()
+
+Limit
+-----
+db.regions.find().limit(2)
+
+Skip
+-----
+db.regions.find().skip(2)
+
+Skip and limit
+--------------
+db.regions.find().skip(1).limit(1)
+
+Sort
+-----
+db.regions.find().sort({ RegionId:1 })
+db.regions.find().sort({ RegionId:-1 })
+
+----------------------------
+Comparision Operators in Queries 
+----------------------------
+
+Basic Comparision operators - less than, Greater than
+-----------------------
+db.products.find({UnitPrice:{$lt:100}})
+db.products.find({UnitPrice:{$gt:100}})
+db.products.find({UnitPrice:{$eq:123.79}})
+
+Multiple Conditions
+db.products.find({UnitPrice:{$gt: 50, $lt: 100}})
+
+-----------------------------
+Logical Operators
+-----------------------------
+
+And Operation
+--------------
+db.products.find({$and: [{Discontinued:1},{UnitPrice:{$gt: 100}}] })
+
+Or Operation
+--------------
+db.products.find({$or: [{Discontinued:1},{UnitsInStock:{$eq: 0}}] })
+
+
+----------------
+Update Documents
+----------------
+this will update the first document and replace the entire document
+
+db.shippers_copy.update({},{Phone:'12345'})
+
+right way using $set operator
+
+db.shippers_copy.update({CompanyName:'United Package'},{$set: {Phone:'123456'}});
+
+//multi updates
+db.shippers_copy.update({},{$set: {Phone:'zyx-12345'}},{multi:true})
+
+db.shippers_copy.updateMany({},{$set: {Phone:'abc-12345'}})
+
+db.shippers_copy.updateOne({},{$set: {Phone:'efg-12345'}})
+
+db.shippers_copy.updateOne({CompanyName:'Some Company in Panama'},{$set: {Phone: 'hij-12345'}},{upsert:true})
+
+
+
+
+
+
+

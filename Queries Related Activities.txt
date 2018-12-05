@@ -1,0 +1,26 @@
+Questions for this Assignment
+1. Insert multiple documents with timestamp datatype as one of the field , try to retrieve Documents between two timestamps. This is a practical real life exercise.
+
+2. Insert multiple documents , try to retrieve Documents between two timestamps [Use _id column ObjectId.getTimestamp() method for filter]. This is a practical exercise.
+
+3. Try to insert a invalid JSON  as a document. Its possible.
+
+4. In a collection find duplicate documents with same field value  and remove the duplicates
+
+5. Search in a Collection for documents without a specified field in them. Its easy
+
+6. Create a set of documents . Use $in operator and Regex together to filter documents. Remember that you cant use $regex operator and $in together.
+
+7. Create documents with field values income and expense. select documents  where income=expense. 
+
+Use $where operator. 
+Simlalry use other operators like $lte or $gte to find the same. 
+Also find the reason of why $where is not recomended to use
+
+8. Can you add comments to your Query? , so that from the log we must be able to read about the Query executed.
+
+ Its one of the simple but very useful feature.  Try it!
+
+9. Use the cursor's foreach method along with find method to copy the documents ,matching a Query, to a different collection.
+
+10. Rename a field in set of documents matching the Query condition. This is a practical exercise. 

@@ -1,0 +1,18 @@
+{"_id":{"$oid":"58d0eb64e7c96714a806aaa9"},"name":"google.com","ranking":1.0,"country":"us","type":"internet services"}
+{"_id":{"$oid":"58d0eb64e7c96714a806aaaa"},"name":"youtube.com","ranking":2.0,"country":"us","type":"video sharing"}
+{"_id":{"$oid":"58d0eb64e7c96714a806aaab"},"name":"facebook.com","ranking":3.0,"country":"us","type":"social Network"}
+{"_id":{"$oid":"58d0eb64e7c96714a806aaac"},"name":"baidu.com","ranking":4.0,"country":"china","type":"search engine"}
+{"_id":{"$oid":"58d0eb64e7c96714a806aaad"},"name":"wikipedia.org","ranking":5.0,"country":"us","type":"encyclopedia"}
+{"_id":{"$oid":"58d0eb64e7c96714a806aaae"},"name":"yahoo.com","ranking":6.0,"country":"us","type":"portal and media"}
+{"_id":{"$oid":"58d10957e7c96714a806aab0"},"name":"GOOGLE.COM","ranking":1.0,"country":"us","type":"internet services"}
+{"_id":{"$oid":"58d10957e7c96714a806aab1"},"name":"YOUTUBE.COM","ranking":2.0,"country":"us","type":"video sharing"}
+{"_id":{"$oid":"58d10957e7c96714a806aab2"},"name":"FACEBOOK.COM","ranking":3.0,"country":"us","type":"social Network"}
+{"_id":{"$oid":"58d10957e7c96714a806aab3"},"name":"BAIDU.COM","ranking":4.0,"country":"china","type":"search engine"}
+{"_id":{"$oid":"58d10957e7c96714a806aab4"},"name":"WIKIPEDIA.ORG","ranking":5.0,"country":"us","type":"encyclopedia"}
+{"_id":{"$oid":"58d10957e7c96714a806aab5"},"name":"YAHOO.COM","ranking":6.0,"country":"us","type":"portal and media"}
+{"_id":{"$oid":"58d151bce7c96714a806aac7"},"name":"GOOGLE.COM","ranking":1.0,"country":"us","type":"internet services"}
+{"_id":{"$oid":"58d151bce7c96714a806aac8"},"name":"YOUTUBE.COM","ranking":2.0,"country":"us","type":"video sharing"}
+{"_id":{"$oid":"58d151bce7c96714a806aac9"},"name":"FACEBOOK.COM","ranking":3.0,"country":"us","type":"social Network"}
+{"_id":{"$oid":"58d151bce7c96714a806aaca"},"name":"BAIDU.COM","ranking":4.0,"country":"china","type":"search engine"}
+{"_id":{"$oid":"58d151bce7c96714a806aacb"},"name":"WIKIPEDIA.ORG","ranking":5.0,"country":"us","type":"encyclopedia"}
+{"_id":{"$oid":"58d151bce7c96714a806aacc"},"name":"YAHOO.COM","ranking":6.0,"country":"us","type":"portal and media"}

@@ -1,0 +1,2 @@
+{"_id":{"$oid":"57a20d383e3f8a22a0007565"},"name":"Bob","state":"ny","country":"us"}
+{"_id":{"$oid":"57a20d383e3f8a22a0007566"},"name":"Alice","state":"ny"}
