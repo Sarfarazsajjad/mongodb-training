@@ -1,0 +1,26 @@
+What you’ll learn
+
+Work with MongoDB with Clarity and Confidence
+Working with mongodb tools like robo3T and noSQLBooster
+Do Regex, GridFS , Replication , Sharding, Full text search
+Basic and Advanced CRUD operations using MongoDB
+Import and Export data from MongoDB
+Work MapReduce, Embedded Documents,Save&Insert , indexing, capped collections, TTL
+
+Find/Search Queries
+Update Queries
+Delete Queries
+Working with Arrays
+Full Text search
+Javascript with mongodb
+GridFS
+Aggregation
+Sharding
+Replication
+MapReduce
+Indexing
+Regex
+Embedded Docs
+Capped Collections
+TTL Index
+MongodbDump

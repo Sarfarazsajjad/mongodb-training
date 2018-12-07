@@ -23,7 +23,7 @@ db.createCollection("cars")
 db.cars.insert({
 	name : 'honda',
 	make : 'accord',
-	yeay : '2010'
+	year : '2010'
 })
 
 //! update
@@ -49,9 +49,6 @@ db.cars.update(
 		$set:{
 			transmission: 'automatic'
 		}
-	},
-	{
-		$upsert:true
 	}
 )
 
@@ -111,12 +108,13 @@ db.student.find({}).sort({name: 1}).limit(2)
 //!Data Import
 //----------
 
+/*
 mongoimport --db northwind --collection territories --type csv --file territories.csv --headerline
 mongoimport --db northwind --collection employees --type csv --file employees.csv --headerline
 mongoimport --db northwind --collection categories --type csv --file categories.csv --headerline
 mongoimport --db northwind --collection customers --type csv --file customers.csv --headerline
 mongoimport --db northwind --collection employee-territories --type csv --file employee-territories.csv --headerline
-
+*/
 
 //----------
 //!Querying
@@ -152,6 +150,13 @@ db.regions.find().skip(1).limit(1)
 //-----
 db.regions.find().sort({ RegionId:1 })
 db.regions.find().sort({ RegionId:-1 })
+
+//! Find object with Object Id
+//------
+db.test.insert({x: 1})
+db.test.find({"_id" : ObjectId("4ecc05e55dd98a436ddcc47c")}) // explicit
+db.test.find(ObjectId("4ecc05e55dd98a436ddcc47c"))           // shortcut
+
 
 //----------------------------
 //!Comparision Operators in Queries 
@@ -438,3 +443,36 @@ $pull,$pop,$addToSet
 //https://docs.mongodb.com/manual/reference/operator/update/pull/
 //https://docs.mongodb.com/manual/reference/operator/update/pop/
 //https://docs.mongodb.com/manual/reference/operator/update/addToSet/
+
+
+//------------------------------------------------
+//! Text Search
+//------------------------------------------------
+
+db.stores.insert(
+    [
+      { _id: 1, name: "Java Hut", description: "Coffee and cakes" },
+      { _id: 2, name: "Burger Buns", description: "Gourmet hamburgers" },
+      { _id: 3, name: "Coffee Shop", description: "Just coffee" },
+      { _id: 4, name: "Clothes Clothes Clothes", description: "Discount clothing" },
+      { _id: 5, name: "Java Shopping", description: "Indonesian goods" }
+    ]
+ )
+
+ db.stores.createIndex( { name: "text", description: "text" } )
+
+ //! $text Operator
+ db.stores.find( { $text: { $search: "java coffee shop" } } )
+
+ //! Exact Phrase
+ db.stores.find( { $text: { $search: "java \"coffee shop\"" } } )
+
+ //! Term Exclusion
+ db.stores.find( { $text: { $search: "java shop -coffee" } } )
+
+//! Sorting
+
+db.stores.find(
+    { $text: { $search: "java coffee shop" } },
+    { score: { $meta: "textScore" } }
+ ).sort( { score: { $meta: "textScore" } } )
