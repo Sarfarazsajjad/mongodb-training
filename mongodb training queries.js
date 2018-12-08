@@ -509,7 +509,8 @@ db.runCommand({
 //------------------------------------------------
 //! Text Search
 //------------------------------------------------
-
+//https://docs.mongodb.com/manual/text-search/
+//https://docs.mongodb.com/manual/reference/operator/query/text/#op._S_text
 db.stores.insert(
     [
       { _id: 1, name: "Java Hut", description: "Coffee and cakes" },
@@ -520,10 +521,41 @@ db.stores.insert(
     ]
  )
 
- db.stores.createIndex( { name: "text", description: "text" } )
+db.stores.find({ $text: { $search: "java" } }); //this will give error without an index  
 
- //! $text Operator
- db.stores.find( { $text: { $search: "java coffee shop" } } )
+/**
+ db.stores.createIndex(
+   {"name": "text"},
+   {
+    background:true,//Specify true to build in the background.
+    //unique:false, //Specify true to create a unique index. A unique index causes MongoDB to reject all documents that contain a duplicate value for the indexed field.
+    //name: "",   //The name of the index.     
+    //partialFilterExpression: { field: { $exists: true } }, // If specified, the index only references documents that match the filter expression
+    //sparse:false, //If true, the index only references documents with the specified field. Starting in MongoDB 3.2, MongoDB provides the option to create partial indexes.  partial indexes should be preferred over sparse indexes.
+
+    //expireAfterSeconds:0, //Specifies a value, in seconds, as a TTL to control how long MongoDB retains documents in this collection.
+   }
+   )
+ */
+
+//single field index
+db.stores.createIndex({ name: "text" })
+//multi field index
+db.stores.createIndex({ name: "text", description: "text" })
+
+//! $text Operator
+db.stores.find( { $text: { $search: "java coffee shop" } } )
+
+//some interesting full text searches
+
+db.stores.find({$text: { $search: "java" }});
+db.stores.find({$text: { $search: "Clothing" }});
+db.stores.find({$text: { $search: "Shopping" }});
+db.stores.find({$text: { $search: "SHOP" }});
+
+//TODO Stop words will be skipped
+
+
 
  //! Exact Phrase
  db.stores.find( { $text: { $search: "java \"coffee shop\"" } } )
