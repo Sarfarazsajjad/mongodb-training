@@ -247,13 +247,18 @@ db.inventory.find( { tags: ["red", "blank"] } )
 //!Find an array that contains both the elements "red" and "blank", without regard to order or other elements
 //----------------------------------------------------------------------------------------------------------
 db.inventory.find( { tags: { $all: ["red", "blank"] } } )
+//! this finds as or operation
+db.inventory.find( { tags: { $in: ["red", "blank"] } } )
 
 
 //!All documents where tags is an array that contains the string "red" as one of its elements:
 //-------------------------------------------------------------------------------------------
 db.inventory.find( { tags: "red" } )
+
 db.inventory.find( {dim_cm:30})
 db.inventory.find( {dim_cm:{$eq: 15.25}})
+
+//TODO END OF SESSION 2
 
 //!Conditions on the elements in the array field
 //---------------------------------------------
@@ -444,6 +449,62 @@ $pull,$pop,$addToSet
 //https://docs.mongodb.com/manual/reference/operator/update/pop/
 //https://docs.mongodb.com/manual/reference/operator/update/addToSet/
 
+
+//------------------------------------------------
+//! Document Validation
+//------------------------------------------------
+//https://docs.mongodb.com/manual/reference/method/db.createCollection/
+
+//*validator object
+{
+    $and:[
+        {
+            total_purchase:{
+                $gte:10000
+            }
+        },
+        {
+            country:{
+                $in:['us','uk','brazil']
+            }
+        }
+    ]
+}
+
+db.getCollection('AmazonSpecialOfferCustomers').find({})
+db.AmazonSpecialOfferCustomers.insert({amzid:7878,total_purchase:11000,country:'uk'})
+db.AmazonSpecialOfferCustomers.insert({amzid:7879,total_purchase:9000,country:'uk'})
+db.AmazonSpecialOfferCustomers.insert({amzid:7880,total_purchase:11000,country:'peru'})
+db.AmazonSpecialOfferCustomers.insert({amzid:7881,total_purchase:11900,country:'us'})
+
+
+//check collection validation object
+db.getCollectionInfos({name:'AmazonSpecialOfferCustomers'})
+
+//https://docs.mongodb.com/manual/reference/method/db.runCommand/
+//https://docs.mongodb.com/manual/reference/command/collMod/
+//! collmod
+// collMod makes it possible to add options to a collection or to modify view definitions.
+// The command takes the following prototype form:
+//* db.runCommand( { collMod: <collection or view>, <option1>: <value1>, <option2>: <value2> ... } )
+
+db.runCommand({
+    collMod: 'AmazonSpecialOfferCustomers',
+    validator: {
+        $and: [
+            {
+                total_purchase: {
+                    $gte: 10000
+                }
+            },
+            {
+                country: {
+                    $in: ['us', 'uk', 'brazil']
+                }
+            }
+        ]
+    }
+})
 
 //------------------------------------------------
 //! Text Search
