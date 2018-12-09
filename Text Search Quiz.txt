@@ -1,0 +1,44 @@
+Question 1:
+db.collection.createIndex() method is reqired for creating an Text Index on a Field. Is this True?
+
+Ans: Yes
+
+For more info on Text Search Visit this MongoDB Documentation Link https://docs.mongodb.com/manual/reference/operator/query/text/
+
+Question 2:
+db.reviews.createIndex(
+
+   {
+     subject: "text",
+     comments: "text"
+   }
+ )
+ The above query will fail as it is creating multiple Text indexes on two fields
+
+.Is This correct?
+
+Ans: No, Multiple - Compound Text indexes are allowed and they are very useful. For more info on Text Search Visit this MongoDB Documentation Link https://docs.mongodb.com/manual/reference/operator/query/text/
+
+Question 3:
+ db.collection.createIndex( { "$**": "text" } ) is a Valid Query , as it is creating a index on multiple fields using wildcard.
+
+ Is this correct?
+
+Ans: Yes, In MongoDB wildcard text indexes are allowed. Its very handy . For more info on Text Search Visit this MongoDB Documentation Link https://docs.mongodb.com/manual/core/index-text/#wildcard-text-indexes
+
+Question 4:
+For Text search to match on a phrase,  enclose the phrase in  double quotes (")
+
+"Hello World". Is this Correct ?
+
+Ans: Yes, Escaped double quotes (\") needs to be used. Example "\"Hello World\"". For more info on Text Search Visit this MongoDB Documentation Link https://docs.mongodb.com/manual/reference/operator/query/text/
+
+Question 5:
+In this search text  hello-world MongoDB will use the - Negation(Minus) symbol to excludes the documents with the word world. Is this Correct?
+
+Ans: No, It will negate only when the word is like this or else it will be considered as hyphenated. So for this , it has to be written like this hello -world For more info on Text Search Visit this MongoDB Documentation Link https://docs.mongodb.com/manual/reference/operator/query/text/
+
+Question 6:
+For case sensitive search option ,$caseSensitive: true can be used . Is this correct?
+
+Ans: Yes and its a common feature of most text search engines. More Info @ https://docs.mongodb.com/manual/reference/operator/query/text/

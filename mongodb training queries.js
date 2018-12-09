@@ -122,6 +122,7 @@ mongoimport --db northwind --collection employee-territories --type csv --file e
 
 //https://docs.mongodb.com/manual/reference/method/db.collection.find/
 //https://docs.mongodb.com/manual/tutorial/query-documents/
+//https://docs.mongodb.com/manual/reference/operator/projection/
 
 db.regions.find({RegionDescription:"Northern"})
 db.regions.find({RegionDescription:"Northern",RegionID:3})
@@ -174,6 +175,8 @@ db.products.find({UnitPrice:{$eq:123.79}})
 db.products.find({UnitPrice:{$gt: 50, $lt: 100}})
 
 //*multi condition works a littebit different for arrays
+
+//TODO End of Session 1 (4 hours)
 
 //-----------------------------
 //!Logical Operators
@@ -258,7 +261,7 @@ db.inventory.find( { tags: "red" } )
 db.inventory.find( {dim_cm:30})
 db.inventory.find( {dim_cm:{$eq: 15.25}})
 
-//TODO END OF SESSION 2
+//TODO END OF SESSION 2 (8 hours)
 
 //!Conditions on the elements in the array field
 //---------------------------------------------
@@ -511,13 +514,17 @@ db.runCommand({
 //------------------------------------------------
 //https://docs.mongodb.com/manual/text-search/
 //https://docs.mongodb.com/manual/reference/operator/query/text/#op._S_text
+//https://docs.mongodb.com/manual/reference/operator/projection/meta/#proj._S_meta
+
 db.stores.insert(
     [
       { _id: 1, name: "Java Hut", description: "Coffee and cakes" },
       { _id: 2, name: "Burger Buns", description: "Gourmet hamburgers" },
       { _id: 3, name: "Coffee Shop", description: "Just coffee" },
-      { _id: 4, name: "Clothes Clothes Clothes", description: "Discount clothing" },
-      { _id: 5, name: "Java Shopping", description: "Indonesian goods" }
+      { _id: 4, name: "Café con", description: "Just coffee french" },
+      { _id: 5, name: "Cafe con", description: "Just coffee america" },
+      { _id: 6, name: "Clothes Clothes Clothes", description: "Discount clothing" },
+      { _id: 7, name: "Java Shopping", description: "Indonesian goods" }
     ]
  )
 
@@ -543,19 +550,29 @@ db.stores.createIndex({ name: "text" })
 //multi field index
 db.stores.createIndex({ name: "text", description: "text" })
 
+//get index info
+db.stores.getIndexes();
+
+//drop index
+db.stores.dropIndex('name_text') 
+db.stores.dropIndex('name_text_description_text')
+
 //! $text Operator
 db.stores.find( { $text: { $search: "java coffee shop" } } )
 
 //some interesting full text searches
 
+//Stemming, Case insensitivity, relevence
 db.stores.find({$text: { $search: "java" }});
 db.stores.find({$text: { $search: "Clothing" }});
 db.stores.find({$text: { $search: "Shopping" }});
 db.stores.find({$text: { $search: "SHOP" }});
 
-//TODO Stop words will be skipped
+//! Stop words will be skipped
+db.stores.find({$text: { $search: "the java." }}) //results will be same as just "java"
 
-
+//! Multi words search
+db.stores.find( { $text: { $search: "java coffee shop" } } )
 
  //! Exact Phrase
  db.stores.find( { $text: { $search: "java \"coffee shop\"" } } )
@@ -563,9 +580,41 @@ db.stores.find({$text: { $search: "SHOP" }});
  //! Term Exclusion
  db.stores.find( { $text: { $search: "java shop -coffee" } } )
 
-//! Sorting
+//! Case Sensitive Search
+db.stores.find({ $text: { $search: "java coffee shop", $caseSensitive: true } })
+db.stores.find({ $text: { $search: "java Coffee shop", $caseSensitive: true } })
 
+//! Diacritic Sensitive
+db.stores.find({ $text: { $search: "cafe", $diacriticSensitive: true } })
+db.stores.find({ $text: { $search: "cafe", $diacriticSensitive: false } })
+
+//! $meta textScore
 db.stores.find(
     { $text: { $search: "java coffee shop" } },
     { score: { $meta: "textScore" } }
- ).sort( { score: { $meta: "textScore" } } )
+)
+
+//! Sorting - $meta textScore
+db.stores.find(
+    { $text: { $search: "java coffee shop" } },
+    { score: { $meta: "textScore" } }
+).sort({ score: { $meta: "textScore" } })
+
+//! Wildcard Text Indexes https://docs.mongodb.com/manual/core/index-text/#wildcard-text-indexes
+// db.collection.createIndex( { "$**": "text" } )
+
+db.stores.createIndex( { "$**": "text" } )
+db.getCollection('sent-comp').createIndex( { "$**": "text" } )
+
+//text searching in large dataset https://github.com/google-research-datasets/sentence-compression
+db.getCollection('sent-comp').getIndexes()
+db.getCollection("sent-comp").createIndex({"headline": "text" })
+db.getCollection('sent-comp').dropIndex('headline_text')
+db.getCollection('sent-comp').createIndex( { "$**": "text" } )
+db.getCollection('sent-comp').dropIndex('$**_text')
+ 
+
+
+//------------------------------------------------
+//! Indexing
+//------------------------------------------------

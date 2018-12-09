@@ -1,0 +1,22 @@
+Please do these activities as they will add good know how to your arsenal
+
+Questions for this Assignment
+In MongoDB we have methods and Commands.
+List 5 methods in Collection and 5 commands under administration section available in MongoDB
+
+Try a Bulk update  of JSON documents. Use db.collection.bulkWrite()
+
+
+
+Try Bulk.insert and Bulk.execute to insert a minimum of 5 JSON documents
+
+Try running multiple instances of MongoDB in a Single Machine. 
+Its simple and will give you confidence as you will know how to change the ports and data directories path.
+
+Try db.runCommand() method to execute at least 3 Database Commands.
+
+List and learn about at least 15 methods from different sections like Collection Methods, Cursor Methods, Database Methods, UserManagement methods from this link
+
+Mongo Shell Methods
+
+https://docs.mongodb.com/manual/reference/method/
