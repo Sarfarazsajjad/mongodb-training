@@ -681,3 +681,33 @@ while(cursor.hasNext()){
     printjson(cursor.next().randomNumber); //print the value
     db.CollectionJSCopy.insert(cursor.next());
 }
+
+//! eval method Provides the ability to run JavaScript code on the MongoDB server.
+// * (depricated in 3.0)
+// https://docs.mongodb.com/manual/reference/command/eval/
+/*
+{
+    eval: <function>,
+    args: [ <arg1>, <arg2> ... ],
+    nolock: <boolean>
+  }
+*/
+
+// db.eval https://docs.mongodb.com/manual/reference/method/db.eval/
+
+db.eval(function add(x,y){
+    return x+y;
+},
+100,200
+)
+
+db.eval(
+    function sum() {
+        let sum_random = 0;
+        cursor = db.getCollection('CollectionJS').find({});
+        while (cursor.hasNext()) {
+            sum_random += cursor.next().randomNumber;
+        }
+        return sum_random;
+    }
+)
