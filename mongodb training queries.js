@@ -663,6 +663,9 @@ if ( cursor.hasNext() ){
 }
 
 //! Cursor
+//https://docs.mongodb.com/manual/tutorial/iterate-a-cursor/
+// https://docs.mongodb.com/manual/reference/method/js-cursor/
+
 
 let cursor = db.getCollection('CollectionJS').find({})
 //loop through cursor
