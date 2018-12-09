@@ -701,6 +701,7 @@ db.eval(function add(x,y){
 100,200
 )
 
+//get sum of all ducuments field
 db.eval(
     function sum() {
         let sum_random = 0;
@@ -711,3 +712,36 @@ db.eval(
         return sum_random;
     }
 )
+
+//! Using system.js
+// * https://docs.mongodb.com/manual/tutorial/store-javascript-function-on-server/
+// * https://docs.mongodb.com/v3.2/reference/method/db.loadServerScripts/
+db.system.js.save(
+    {
+        _id: "echoFunction",
+        value: function (x) { return x; }
+    }
+)
+
+db.system.js.save(
+    {
+        _id: "myAddFunction",
+        value: function (x, y) { return x + y; }
+    }
+);
+db.loadServerScripts();
+myAddFunction(1,3)
+
+db.system.js.save({
+  _id: "sumOfRandom",
+  value: function() {
+    let sum_random = 0;
+    cursor = db.getCollection("CollectionJS").find({});
+    while (cursor.hasNext()) {
+      sum_random += cursor.next().randomNumber;
+    }
+    return sum_random;
+  }
+});
+db.loadServerScripts();
+sumOfRandom();
