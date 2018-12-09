@@ -745,3 +745,15 @@ db.system.js.save({
 });
 db.loadServerScripts();
 sumOfRandom();
+
+//! Execute js script files
+// * https://docs.mongodb.com/manual/tutorial/write-scripts-for-the-mongo-shell/#execute-a-javascript-file
+
+/*
+The load() method accepts relative and absolute paths. If the current working directory
+ of the mongo shell is /data/db, and the myjstest.js resides in the /data/db/scripts 
+ directory, then the following calls within the mongo shell would be equivalent:
+*/
+
+load("scripts/myjstest.js")
+load("/data/db/scripts/myjstest.js")
