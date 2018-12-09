@@ -616,5 +616,65 @@ db.getCollection('sent-comp').dropIndex('$**_text')
 
 
 //------------------------------------------------
-//! Indexing
+//! Javascript in Mongodb
 //------------------------------------------------
+
+//create a database JSDemoDB
+//create a collection CollectionJS
+
+//! REPL Example
+
+//Create 100 documents with random numbers using javascript with javascript libraries
+
+for (let index = 0; index < 100; index++) {
+    let doc = {};
+    doc.randomNumber = Math.floor(Math.random()*100)+1;
+    db.CollectionJS.insert(doc);
+}
+
+let greaterThanNumber = 50;
+let searchQuery = {
+    randomNumber:{$gt:greaterThanNumber}
+}
+db.CollectionJS.find(searchQuery)
+
+//! Mongodb jsmethods and commands
+//* https://docs.mongodb.com/manual/tutorial/write-scripts-for-the-mongo-shell/
+
+// show dbs, show databases
+db.adminCommand('listDatabases')
+
+// use <db>
+db = db.getSiblingDB('<db>')
+
+// show collections
+db.getCollectionNames()
+
+// show users
+db.getUsers()
+
+// show roles
+db.getRoles({showBuiltinRoles: true})
+
+// it
+let cursor = db.CollectionJS.find()
+if ( cursor.hasNext() ){
+   cursor.next();
+}
+
+//! Cursor
+
+let cursor = db.getCollection('CollectionJS').find({})
+//loop through cursor
+while(cursor.hasNext()){
+    printjson(cursor.next().randomNumber) //print the value
+}
+
+//!Cursor Copy data to another collection
+
+let cursor = db.getCollection('CollectionJS').find({})
+//loop through cursor
+while(cursor.hasNext()){
+    printjson(cursor.next().randomNumber); //print the value
+    db.CollectionJSCopy.insert(cursor.next());
+}
