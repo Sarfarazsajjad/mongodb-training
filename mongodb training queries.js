@@ -769,3 +769,57 @@ load("/data/db/scripts/myjstest.js")
 //from the shell run
 //mongofiles -d DB_GRIDFS put ~/Desktop/testfile.png
 //mongofiles -d DB_GRIDFS list
+
+
+//------------------------------------------------
+//! Aggregation
+//------------------------------------------------
+
+//create a separate database for aggregation practice
+//DB_Aggregation
+
+db.webrank.insertMany([{"site":"google.com","visits":2.19426464e+08,"category":"search"},
+{"site":"youtube.com","visits":2.09211168e+08,"category":"video"},
+{"site":"facebook.com","visits":1.43421344e+08,"category":"social"},
+{"site":"msn.com","visits":1.3487464e+08,"category":"portal"},
+{"site":"bing.com","visits":1.12169608e+08,"category":"search"},
+{"site":"yahoo.com","visits":1.06619176e+08,"category":"portal"},
+{"site":"amazon.com","visits":8.6478e+07,"category":"business"},
+{"site":"twitter.com","visits":8.635632e+07,"category":"portal"},
+{"site":"yelp.com","visits":8.2077296e+07,"category":"social"},
+{"site":"pinterest.com","visits":6.8081688e+07,"category":"social"},
+{"site":"microsoft.com","visits":6.2076152e+07,"category":"business"},
+{"site":"buzzfeed.com","visits":6.1257936e+07,"category":"news"},
+{"site":"ebay.com","visits":5.9180008e+07,"category":"business"},
+{"site":"answers.com","visits":5.051636e+07,"category":"info"},
+{"site":"wikia.com","visits":4.6402732e+07,"category":"info"},
+{"site":"live.com","visits":4.4029712e+07,"category":"mail"},
+{"site":"wikipedia.org","visits":4.3087688e+07,"category":"info"},
+{"site":"foxnews.com","visits":4.1724808e+07,"category":"news"},
+{"site":"paypal.com","visits":3.9840264e+07,"category":"business"},
+{"site":"linkedin.com","visits":3.7182368e+07,"category":"social"},
+{"site":"wordpress.com","visits":3.1483602e+07,"category":"blog"},
+{"site":"wayfair.com","visits":3.0322204e+07,"category":"business"},
+{"site":"godaddy.com","visits":3.0007724e+07,"category":"business"},
+{"site":"aol.com","visits":2.9526784e+07,"category":"portal"},
+{"site":"walmart.com","visits":2.7471724e+07,"category":"business"},
+{"site":"urbandictionary.com","visits":2.6579776e+07,"category":"portal"},
+{"site":"bustle.com","visits":2.5817768e+07,"category":"info"},
+{"site":"whitepages.com","visits":2.5308228e+07,"category":"search"},
+{"site":"blogger.com","visits":2.4357936e+07,"category":"blog"},
+{"site":"craigslist.org","visits":2.29686e+07,"category":"classified"},
+{"site":"ranker.com","visits":2.2916572e+07,"category":"info"},
+{"site":"legacy.com","visits":2.205306e+07,"category":"portal"},
+{"site":"fandango.com","visits":2.1935104e+07,"category":"business"},
+{"site":"comcast.net","visits":2.1555344e+07,"category":"business"},
+{"site":"nytimes.com","visits":2.1331742e+07,"category":"news"},
+{"site":"mozilla.org","visits":2.1234808e+07,"category":"business"},
+{"site":"stackexchange.com","visits":2.0840396e+07,"category":"info"},
+{"site":"vice.com","visits":2.0714488e+07,"category":"magazine"},
+{"site":"about.com","visits":1.9717244e+07,"category":"info"},
+{"site":"topix.com","visits":1.9623432e+07,"category":"info"},
+{"site":"blogspot.com","visits":1.9451696e+07,"category":"blog"},
+{"site":"tumblr.com","visits":1.9287978e+07,"category":"blog"},
+{"site":"weather.com","visits":1.9153112e+07,"category":"info"},
+{"site":"adobe.com","visits":1.9123388e+07,"category":"business"},
+{"site":"imgur.com","visits":1.8623196e+07,"category":"image"}]);
