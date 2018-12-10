@@ -757,3 +757,15 @@ The load() method accepts relative and absolute paths. If the current working di
 
 load("scripts/myjstest.js")
 load("/data/db/scripts/myjstest.js")
+
+
+//------------------------------------------------
+//! GridFS
+//------------------------------------------------
+
+//! mongofiles utility
+//* mongofiles <options> <commands> <filename>
+
+//from the shell run
+//mongofiles -d DB_GRIDFS put ~/Desktop/testfile.png
+//mongofiles -d DB_GRIDFS list
