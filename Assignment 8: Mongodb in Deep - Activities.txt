@@ -1,0 +1,20 @@
+Questions for this Assignment
+We know that MongoDB shell is JS capable. Prove this by using javascript for-loop and variables usage in the shell or in your Client query window/workspace
+
+ We are having two type of Storage engines in MongoDB . 
+
+Why two and find their purpose.
+
+ Create a table with data in a RDBMS like mysql , Migrate the data to MongoDB using MongoBooster or any-other way you prefer.
+
+Surely you might be good with a programming language.Without using any tutorial[Except the Manual ] , please try to connect and fire a find query & print the values.
+
+This will surely challenge you and makes your journey interesting
+
+Inspect the files generated in your data directory path of MongoDB.
+
+MongoDB can validate Documents while insertion and updates in a collection.
+
+This is relatively a new feature in MongoDB.
+
+Show a Simple example to achieve this. 

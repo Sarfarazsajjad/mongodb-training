@@ -1,0 +1,33 @@
+Questions for this Assignment
+Find the purpose of the following executables bundled with Mongo Server
+1.mongooplog
+2.bsondump
+3.mongoperf
+4.mongotop
+5.mongos
+If possible please try executing these executables [while server is running] ,observe and work with them
+
+Use serverStatus,hostInfo,listDatabases,dbStats,collStats,explain Commands against MongoDB .
+Though may be advanced at this time, they are quite easily understandable and are very useful
+
+Use listCollections,shutDown,copydb,dropDatabase,connectionStatus,
+
+logRotate,repairDatabase Commands against your database.
+
+These are useful Administration commands that will be used quite often.
+
+Why we are advised to NOT to create collections with names starting with system? Please find the reason. 
+
+If you dont know about Docker , please learn about that.
+
+Try working with MongoDB installed in Docker.
+Its Easy and its the future of software distribution through containerization. It can be done in 5 steps.
+
+If you dont know about Vagrant , please learn about that.
+
+Try working with MongoDB bundled in Vagrant.
+Its Easy Just in 5 steps you can get it running.
+
+Try to use a Cloud hosting server [Openstack/Digital Ocean/AWS - Most of them has a Free tier ]  Install MongoDB in it and try connecting fromb using a Client like Robomongo.
+
+Though Challenging its Easy ,As most of us are going to use  a Cloud installed DB in our projects.
