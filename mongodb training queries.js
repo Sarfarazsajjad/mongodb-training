@@ -648,6 +648,8 @@ db.getCollection("sent-comp").createIndex({"headline": "text" })
 db.getCollection('sent-comp').dropIndex('headline_text')
 db.getCollection('sent-comp').createIndex( { "$**": "text" } )
 db.getCollection('sent-comp').dropIndex('$**_text')
+
+db.getCollection("sent-comp").stats({indexDetails:true});
  
 
 
@@ -806,6 +808,9 @@ load("/data/db/scripts/myjstest.js")
 //mongofiles -d DB_GRIDFS put ~/Desktop/testfile.png
 //mongofiles -d DB_GRIDFS list
 
+// Find by name e.g. db.getCollection("images.files").find({filename:/name/i}).sort({_id:-1})
+db.getCollection("images.files").find({filename:/profile picture/i}).sort({_id:-1})
+
 
 //------------------------------------------------
 //! Aggregation
@@ -859,3 +864,40 @@ db.webrank.insertMany([{"site":"google.com","visits":2.19426464e+08,"category":"
 {"site":"weather.com","visits":1.9153112e+07,"category":"info"},
 {"site":"adobe.com","visits":1.9123388e+07,"category":"business"},
 {"site":"imgur.com","visits":1.8623196e+07,"category":"image"}]);
+
+// https://docs.mongodb.com/manual/reference/command/distinct/
+// https://docs.mongodb.com/manual/reference/method/db.collection.distinct/
+
+// https://docs.mongodb.com/manual/reference/command/group/
+// https://docs.mongodb.com/manual/reference/method/db.collection.group/
+
+db.webrank.count();
+db.webrank.count({category:"search"})
+db.webrank.distinct("category")
+
+//! Aggregation Pipeline
+// https://docs.mongodb.com/manual/reference/method/db.collection.aggregate/
+// https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/
+
+//* Group Operator
+// https://docs.mongodb.com/manual/reference/operator/aggregation/group/#pipe._S_group
+//* Expression 
+// https://docs.mongodb.com/manual/meta/aggregation-quick-reference/#aggregation-expressions
+// Aggregation expressions use field path to access fields in the input documents. To specify
+//  a field path, use a string that prefixes with a dollar sign $ the field name or the
+//  dotted field name, if the field is in embedded document. For example, "$user" to
+//  specify the field path for the user field or "$user.name" to specify the field 
+// path to "user.name" field.
+//* Sum operator
+
+db.webrank.aggregate({
+    $group: { _id: "$category", totalNumber: { $sum : 1 }} 
+})
+
+//aggreated group sort
+db.webrank.aggregate({
+    $group: { _id: "$category", totalNumber: { $sum : 1 }}
+}, 
+    {$sort:{totalNumber:-1} }//decending order
+)
+
