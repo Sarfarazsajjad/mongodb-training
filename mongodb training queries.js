@@ -306,6 +306,8 @@ db.inventory.find( { "tags": { $size: 3 } } )
 //----------------------------------
 
 db.inventory.insertMany( [
+
+//    { item: "journal", instock: [ { qty: 5, warehouse: "A" },{ warehouse: "A", qty: 5 }, { warehouse: "C", qty: 15 } ] },
    { item: "journal", instock: [ { warehouse: "A", qty: 5 }, { warehouse: "C", qty: 15 } ] },
    { item: "notebook", instock: [ { warehouse: "C", qty: 5 } ] },
    { item: "paper", instock: [ { warehouse: "A", qty: 60 }, { warehouse: "B", qty: 15 } ] },
@@ -313,7 +315,8 @@ db.inventory.insertMany( [
    { item: "postcard", instock: [ { warehouse: "B", qty: 15 }, { warehouse: "C", qty: 35 } ] }
 ]);
 
-//* Equality matches on the whole embedded/nested document require an exact match of the specified document
+//* Equality matches on the whole embedded/nested document require an exact match
+//* of the specified document
 db.inventory.find( { "instock": { warehouse: "A", qty: 5 } } )
 //* The following query does not match any documents in the inventory collection:
 db.inventory.find( { "instock": { qty: 5, warehouse: "A" } } )
@@ -359,7 +362,7 @@ db.inventory.find( { "instock": { $elemMatch: { qty: { $gt: 10, $lte: 20 } } } }
  // document) in the array has the qty field less than or equal to 20:
 db.inventory.find( { "instock.qty": { $gt: 10,  $lte: 20 } } )
 
-//The following example queries for documents where the instock array has at least one
+// The following example queries for documents where the instock array has at least one
 // embedded document that contains the field qty equal to 5 and at least one embedded
 // document (but not necessarily the same embedded document) that contains the field
 // warehouse equal to A:
@@ -508,6 +511,39 @@ db.runCommand({
         ]
     }
 })
+
+db.createCollection("AmazonSpecialOfferCustomers", {
+    validator: {
+        $and: [
+            {
+                total_purchase: {
+                    $gte: 10000
+                }
+            },
+            {
+                country: {
+                    $in: ['us', 'uk', 'brazil']
+                }
+            }
+        ]
+    },
+    validationLevel: "strict",
+    validationAction: "error",
+})
+
+//how to validate invalid data in collection
+// https://docs.mongodb.com/manual/reference/method/db.collection.validate/
+// https://docs.mongodb.com/manual/reference/command/validate/
+// https://www.w3resource.com/mongodb/shell-methods/collection/db-collection-validate.php
+// https://stackoverflow.com/questions/39603228/validator-in-mongodb-does-not-work
+// https://dba.stackexchange.com/questions/151215/use-cases-for-db-collection-validate-checks-the-structures-within-a-namespac
+// https://dba.stackexchange.com/questions/160871/db-collection-validate-missing-output-and-verify-returned-ebusy-on-first-run
+
+db.AmazonSpecialOfferCustomers.validate(true)
+db.AmazonSpecialOfferCustomers.validate()
+db.getCollectionInfos({name:"AmazonSpecialOfferCustomers"})
+db.runCommand({ validate: "AmazonSpecialOfferCustomers", full:true,scandata:true })
+
 
 //------------------------------------------------
 //! Text Search
