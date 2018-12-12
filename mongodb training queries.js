@@ -891,27 +891,35 @@ db.webrank.distinct("category")
 //* Sum operator
 
 db.webrank.aggregate({
-    $group: { _id: "$category", totalNumber: { $sum : 1 }} 
+    $group: { _id: "$category", totalNumber: { $sum: 1 } }
 })
 
 //aggreated group by sum sort
 db.webrank.aggregate({
-    $group: { _id: "$category", totalNumber: { $sum : 1 }}
-}, 
-    {$sort:{totalNumber:-1} }//decending order
+    $group: { _id: "$category", totalNumber: { $sum: 1 } }
+},
+    { $sort: { totalNumber: -1 } }//decending order
 )
 
 //aggreated group by sum sort assending order
 db.webrank.aggregate({
-    $group: { _id: "$category", totalNumber: { $sum : 1 }}
-}, 
-    {$sort:{totalNumber:1} }//decending order
+    $group: { _id: "$category", totalNumber: { $sum: 1 } }
+},
+    { $sort: { totalNumber: 1 } }//decending order
 )
 
 //aggreated group by avg sort assending order
 db.webrank.aggregate({
-    $group: { _id: "$category", avgVisit: { $avg : '$visits' }}
-}, 
-    {$sort:{avgVisit:-1} }
+    $group: { _id: "$category", avgVisit: { $avg: '$visits' } }
+},
+    { $sort: { avgVisit: -1 } }
+)
+
+//aggreated group by avg sort assending order with limit
+db.webrank.aggregate({
+    $group: { _id: "$category", avgVisit: { $avg: '$visits' } }
+},
+    { $sort: { avgVisit: -1 } },
+    { $limit: 5 }
 )
 
