@@ -923,3 +923,10 @@ db.webrank.aggregate({
     { $limit: 5 }
 )
 
+//aggreated group by avg sort assending order with skip
+db.webrank.aggregate({
+    $group: { _id: "$category", avgVisit: { $avg: '$visits' } }
+},
+    { $sort: { avgVisit: -1 } },
+    { $skip: 5 }
+)
