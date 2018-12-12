@@ -894,17 +894,24 @@ db.webrank.aggregate({
     $group: { _id: "$category", totalNumber: { $sum : 1 }} 
 })
 
-//aggreated group sort
+//aggreated group by sum sort
 db.webrank.aggregate({
     $group: { _id: "$category", totalNumber: { $sum : 1 }}
 }, 
     {$sort:{totalNumber:-1} }//decending order
 )
 
-//aggreated group sort assending order
+//aggreated group by sum sort assending order
 db.webrank.aggregate({
     $group: { _id: "$category", totalNumber: { $sum : 1 }}
 }, 
     {$sort:{totalNumber:1} }//decending order
+)
+
+//aggreated group by avg sort assending order
+db.webrank.aggregate({
+    $group: { _id: "$category", avgVisit: { $avg : '$visits' }}
+}, 
+    {$sort:{avgVisit:-1} }
 )
 
