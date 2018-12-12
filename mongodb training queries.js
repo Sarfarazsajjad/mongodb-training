@@ -930,3 +930,10 @@ db.webrank.aggregate({
     { $sort: { avgVisit: -1 } },
     { $skip: 5 }
 )
+
+//* $match operator
+//* https://docs.mongodb.com/manual/reference/operator/aggregation/match/#pipe._S_match
+
+db.webrank.aggregate({
+    $match: {category:"blog"}
+})
