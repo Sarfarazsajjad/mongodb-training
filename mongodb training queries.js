@@ -937,9 +937,17 @@ db.webrank.aggregate({
 db.webrank.aggregate({
     $match: {category:"blog"}
 })
+
+//match with sort and limit
 db.webrank.aggregate({
     $match: {category:"blog"}
 },
 {$sort:-1},
 {$limit:2}
+)
+
+//using match with group
+db.webrank.aggregate(
+    { $group: { _id: "$category", totalVisits: { $sum: '$visits' } } },
+    { $match: { totalVisits: { $gte: 100000 * 1000 } } } //more than 100 million
 )
