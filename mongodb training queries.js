@@ -937,3 +937,9 @@ db.webrank.aggregate({
 db.webrank.aggregate({
     $match: {category:"blog"}
 })
+db.webrank.aggregate({
+    $match: {category:"blog"}
+},
+{$sort:-1},
+{$limit:2}
+)
