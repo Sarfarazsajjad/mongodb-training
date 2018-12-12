@@ -901,3 +901,10 @@ db.webrank.aggregate({
     {$sort:{totalNumber:-1} }//decending order
 )
 
+//aggreated group sort assending order
+db.webrank.aggregate({
+    $group: { _id: "$category", totalNumber: { $sum : 1 }}
+}, 
+    {$sort:{totalNumber:1} }//decending order
+)
+
