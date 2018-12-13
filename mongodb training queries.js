@@ -935,15 +935,15 @@ db.webrank.aggregate({
 //* https://docs.mongodb.com/manual/reference/operator/aggregation/match/#pipe._S_match
 
 db.webrank.aggregate({
-    $match: {category:"blog"}
+    $match: { category: "blog" }
 })
 
 //match with sort and limit
 db.webrank.aggregate({
-    $match: {category:"blog"}
+    $match: { category: "blog" }
 },
-{$sort:-1},
-{$limit:2}
+    { $sort: { visits: -1 } },
+    { $limit: 2 }
 )
 
 //using match with group
@@ -951,3 +951,23 @@ db.webrank.aggregate(
     { $group: { _id: "$category", totalVisits: { $sum: '$visits' } } },
     { $match: { totalVisits: { $gte: 100000 * 1000 } } } //more than 100 million
 )
+
+
+// lists all
+db.webrank.aggregate()
+db.webrank.aggregate([])
+db.webrank.aggregate([{ $project: { site: 1, visits: 1 } }]);
+db.webrank.aggregate([{ $project: { _id: 0, site: 1, visits: 1 } }]);
+db.webrank.aggregate([{ $project: { _id: 0, visits: 1, site: { $substr: ["$site", 0, 4] } } }]);
+
+//top 2 categories
+db.webrank.aggregate([
+  {
+    $group: {
+      _id: { category: "$category" },
+      visits: { $sum: "$visits" }
+    }
+  },
+  { $sort: { visits: -1 } },
+  { $limit: 2 }
+]);
