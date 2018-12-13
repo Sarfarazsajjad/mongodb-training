@@ -908,7 +908,12 @@ db.webrank.aggregate({
     { $sort: { totalNumber: 1 } }//decending order
 )
 
-//aggreated group by avg sort assending order
+// aggregated group by avg
+db.webrank.aggregate([{
+    $group: { _id: "$category", avgVisit: { $avg: '$visits' } }
+}])
+
+//aggregated group by avg sort assending order
 db.webrank.aggregate({
     $group: { _id: "$category", avgVisit: { $avg: '$visits' } }
 },
@@ -921,14 +926,6 @@ db.webrank.aggregate({
 },
     { $sort: { avgVisit: -1 } },
     { $limit: 5 }
-)
-
-//aggreated group by avg sort assending order with skip
-db.webrank.aggregate({
-    $group: { _id: "$category", avgVisit: { $avg: '$visits' } }
-},
-    { $sort: { avgVisit: -1 } },
-    { $skip: 5 }
 )
 
 //* $match operator
@@ -956,9 +953,16 @@ db.webrank.aggregate(
 // lists all
 db.webrank.aggregate()
 db.webrank.aggregate([])
+
+//* $project operator
 db.webrank.aggregate([{ $project: { site: 1, visits: 1 } }]);
 db.webrank.aggregate([{ $project: { _id: 0, site: 1, visits: 1 } }]);
 db.webrank.aggregate([{ $project: { _id: 0, visits: 1, site: { $substr: ["$site", 0, 4] } } }]);
+
+//sort by category then visits
+db.webrank.aggregate([{ $project: {_id:0,site:1,visits:1,category:1}},
+    {$sort:{category:1,visits:-1}}
+    ]);
 
 //top 2 categories
 db.webrank.aggregate([
