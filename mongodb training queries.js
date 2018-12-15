@@ -1046,6 +1046,8 @@ for(i=0;i<50000;i++){
 //------------------------------------------------
 //! Replication
 //------------------------------------------------
+// https://docs.mongodb.com/manual/replication/
+// https://docs.mongodb.com/manual/administration/replica-set-deployment/
 
 // * sudo mongod --port "3001" --dbpath "/replica-db1" --replSet "replication-test"
 // * sudo mongod --port "3002" --dbpath "/replica-db2" --replSet "replication-test"
@@ -1054,3 +1056,22 @@ for(i=0;i<50000;i++){
 rs.initiate()
 rs.status()
 rs.add("localhost:3002")
+
+
+//------------------------------------------------
+//! Mongodb Configuration File
+//------------------------------------------------
+// https://docs.mongodb.com/manual/reference/configuration-options/
+/*
+On Linux, a default /etc/mongod.conf configuration file is included when
+using a package manager to install MongoDB.
+
+On Windows, a default <install directory>/bin/mongod.cfg configuration file
+is included during the installation.
+
+On macOS, the installation does not include a default configuration file;
+instead, to use a configuration file, create a file.
+/*
+
+// !setting mongodb database location/path
+// https://docs.mongodb.com/manual/reference/configuration-options/#storage.dbPath
