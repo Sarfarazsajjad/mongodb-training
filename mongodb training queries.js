@@ -1041,3 +1041,16 @@ db.webrank.aggregate([
 for(i=0;i<50000;i++){
     db.details_collection.insert({Name:'Hello'+i, id: i+10, annual_income: 1000000+i});
 }
+
+
+//------------------------------------------------
+//! Replication
+//------------------------------------------------
+
+// * sudo mongod --port "3001" --dbpath "/replica-db1" --replSet "replication-test"
+// * sudo mongod --port "3002" --dbpath "/replica-db2" --replSet "replication-test"
+
+//connect robo3t to the first instance and add the other
+rs.initiate()
+rs.status()
+rs.add("localhost:3002")
