@@ -993,3 +993,14 @@ db.webrank.aggregate([
 // * Aggregation Pipeline Operators
 // https://docs.mongodb.com/manual/reference/operator/aggregation/
 
+
+//------------------------------------------------
+//! Sharding
+//------------------------------------------------
+
+// 1. create directories
+// 2. start sharding servers
+// 3. start config server
+// 4. start router server
+// 5. add shards
+// 6. enable sharding on DB and collection
