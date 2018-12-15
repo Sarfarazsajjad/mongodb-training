@@ -1,3 +1,6 @@
+//* Quick Reference Card
+// https://www.mongodb.com/collateral/quick-reference-cards
+
 //* mongodb
 
 //* show dbs
@@ -816,6 +819,10 @@ db.getCollection("images.files").find({filename:/profile picture/i}).sort({_id:-
 //! Aggregation
 //------------------------------------------------
 
+// * Aggrigation Quick Reference
+// https://docs.mongodb.com/manual/aggregation/
+// https://docs.mongodb.com/manual/meta/aggregation-quick-reference/
+
 //create a separate database for aggregation practice
 //DB_Aggregation
 
@@ -975,3 +982,14 @@ db.webrank.aggregate([
   { $sort: { visits: -1 } },
   { $limit: 2 }
 ]);
+
+//* Official Aggrigation Examples
+// https://docs.mongodb.com/manual/tutorial/aggregation-with-user-preference-data/
+// https://docs.mongodb.com/manual/tutorial/aggregation-zip-code-data-set/
+
+// * Aggregation Pipeline Stages
+// https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/
+
+// * Aggregation Pipeline Operators
+// https://docs.mongodb.com/manual/reference/operator/aggregation/
+
