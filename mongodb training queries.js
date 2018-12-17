@@ -547,6 +547,7 @@ db.AmazonSpecialOfferCustomers.validate()
 db.getCollectionInfos({name:"AmazonSpecialOfferCustomers"})
 db.runCommand({ validate: "AmazonSpecialOfferCustomers", full:true,scandata:true })
 
+//TODO End of 3rd session 12 hours
 
 //------------------------------------------------
 //! Text Search
@@ -678,6 +679,8 @@ let searchQuery = {
     randomNumber:{$gt:greaterThanNumber}
 }
 db.CollectionJS.find(searchQuery)
+
+//TODO End of 4th session - 16 hours
 
 //! Mongodb jsmethods and commands
 //* https://docs.mongodb.com/manual/tutorial/write-scripts-for-the-mongo-shell/
