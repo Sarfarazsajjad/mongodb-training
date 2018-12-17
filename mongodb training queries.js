@@ -119,6 +119,7 @@ mongoimport --db northwind --collection customers --type csv --file customers.cs
 mongoimport --db northwind --collection employee-territories --type csv --file employee-territories.csv --headerline
 */
 
+
 //----------
 //!Querying
 //----------
@@ -320,6 +321,8 @@ db.inventory.insertMany( [
 
 //* Equality matches on the whole embedded/nested document require an exact match
 //* of the specified document
+
+
 db.inventory.find( { "instock": { warehouse: "A", qty: 5 } } )
 //* The following query does not match any documents in the inventory collection:
 db.inventory.find( { "instock": { qty: 5, warehouse: "A" } } )
@@ -333,6 +336,8 @@ db.inventory.find( { "instock": { $elemMatch: { warehouse: "A", qty: 5 } } } )
 
 //* Specify a Query Condition on a Field Embedded in an Array of Documents
 db.inventory.find( { 'instock.qty': { $lte: 20 } } )
+db.inventory.find({'instock':{qty:{$lte:20}}}) // this is wrong
+db.inventory.find({ instock: { $elemMatch: { qty: { $lte: 20 } } } })
 
 //* Use the Array Index to Query for a Field in the Embedded Document
 db.inventory.find( { 'instock.0.qty': { $lte: 20 } } )
@@ -726,6 +731,12 @@ while(cursor.hasNext()){
     db.CollectionJSCopy.insert(cursor.next());
 }
 
+//copy as array from another database's collection
+let testdb = db.getSiblingDB('test')
+
+let arr = db.CollectionJS.find({},{_id:0}).toArray()
+testdb.newCol.insertMany(arr)
+
 //! eval method Provides the ability to run JavaScript code on the MongoDB server.
 // * (depricated in 3.0)
 // https://docs.mongodb.com/manual/reference/command/eval/
@@ -1000,6 +1011,8 @@ db.webrank.aggregate([
 //------------------------------------------------
 //! Sharding
 //------------------------------------------------
+// https://docs.mongodb.com/manual/tutorial/deploy-shard-cluster/
+
 
 // 1. create directories
 // 2. start sharding servers
@@ -1012,17 +1025,31 @@ db.webrank.aggregate([
 // *  mkdir c:\data\srx\db1
 // *  mkdir c:\data\srx\db2
 // *  mkdir c:\data\srx\db3
+// *  mkdir c:\data\srx\configdb
 
 //Start Shard Servers on different ports
 // *  mongod --shardsvr --port 10001 --dbpath c:\data\srx\db1
 // *  mongod --shardsvr --port 10002 --dbpath c:\data\srx\db2
 // *  mongod --shardsvr --port 10003 --dbpath c:\data\srx\db3
 
+//Mac or Linux
+// * sudo mongod --shardsvr --port 10001 --dbpath /data/srx/db1
+// * sudo mongod --shardsvr --port 10002 --dbpath /data/srx/db2
+// * sudo mongod --shardsvr --port 10003 --dbpath /data/srx/db3
+
 //Start config Server
-// *  mongod.exe --configsvr --port 20000  --dbpath c:\data\configdb_2
+// *  mongod.exe --configsvr --port 20000  --dbpath c:\data\configdb
+// Mac or linux
+// * sudo mongod --configsvr --port 20000  --dbpath /data/srx/configdb --replSet "sharding-test"
 
 //Using mongos start the Query Router for the config server and specify the chunk size
-// *  mongos.exe --configdb localhost:20000 --port 20001 --chunkSize 1 
+// *  mongos.exe --configdb localhost:20000 --port 20001
+// Mac or linux
+// *  sudo mongos --configdb sharding-test/localhost:20000 --port 20001
+
+// modify chunk size
+// * use config
+// * db.settings.save( { _id:"chunksize", value: 1 } )
 
 //Connect to Router 
 //*  mongo --port 20001 --host localhost
