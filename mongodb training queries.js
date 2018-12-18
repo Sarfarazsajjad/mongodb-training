@@ -1013,7 +1013,6 @@ db.webrank.aggregate([
 //------------------------------------------------
 // https://docs.mongodb.com/manual/tutorial/deploy-shard-cluster/
 
-
 // 1. create directories
 // 2. start sharding servers
 // 3. start config server
@@ -1022,37 +1021,40 @@ db.webrank.aggregate([
 // 6. enable sharding on DB and collection
 
 //Create data directories for 3 Shard Servers & 1 for the config server
-// *  mkdir c:\data\srx\db1
-// *  mkdir c:\data\srx\db2
-// *  mkdir c:\data\srx\db3
-// *  mkdir c:\data\srx\configdb
+// *  mkdir c:\data\srd\db1
+// *  mkdir c:\data\srd\db2
+// *  mkdir c:\data\srd\db3
+// *  mkdir c:\data\srd\configdb
 
 //Start Shard Servers on different ports
-// *  mongod --shardsvr --port 10001 --dbpath c:\data\srx\db1
-// *  mongod --shardsvr --port 10002 --dbpath c:\data\srx\db2
-// *  mongod --shardsvr --port 10003 --dbpath c:\data\srx\db3
+// *  mongod --shardsvr --port 10001 --dbpath c:\data\srd\db1
+// *  mongod --shardsvr --port 10002 --dbpath c:\data\srd\db2
+// *  mongod --shardsvr --port 10003 --dbpath c:\data\srd\db3
 
 //Mac or Linux
-// * sudo mongod --shardsvr --port 10001 --dbpath /data/srx/db1
-// * sudo mongod --shardsvr --port 10002 --dbpath /data/srx/db2
-// * sudo mongod --shardsvr --port 10003 --dbpath /data/srx/db3
+// * sudo mongod --shardsvr --port 10001 --dbpath /data/srd/db1
+// * sudo mongod --shardsvr --port 10002 --dbpath /data/srd/db2
+// * sudo mongod --shardsvr --port 10003 --dbpath /data/srd/db3
 
 //Start config Server
 // *  mongod.exe --configsvr --port 20000  --dbpath c:\data\configdb
 // Mac or linux
-// * sudo mongod --configsvr --port 20000  --dbpath /data/srx/configdb --replSet "sharding-test"
+// * sudo mongod --configsvr --port 20000  --dbpath /data/srd/configdb --replSet "configrpl"
+
+// connect to the config server and initiate its replicaset
+rs.initiate()
 
 //Using mongos start the Query Router for the config server and specify the chunk size
 // *  mongos.exe --configdb localhost:20000 --port 20001
 // Mac or linux
-// *  sudo mongos --configdb sharding-test/localhost:20000 --port 20001
-
-// modify chunk size
-// * use config
-// * db.settings.save( { _id:"chunksize", value: 1 } )
+// *  sudo mongos --configdb configrpl/localhost:20000 --port 20001
 
 //Connect to Router 
 //*  mongo --port 20001 --host localhost
+
+// modify chunk size
+// * use config
+db.settings.save( { _id:"chunksize", value: 1 } )
 // Use admin Priveleges
 //*  use admin
 // Add shards
