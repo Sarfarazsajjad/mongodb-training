@@ -1214,3 +1214,30 @@ db.orders.mapReduce(
       finalize: finalizeFunction2
     }
   )
+
+//------------------------------------------------
+//! Regix
+//------------------------------------------------
+//   https://docs.mongodb.com/manual/reference/operator/query/regex/index.html
+
+/*
+{ <field>: { $regex: /pattern/, $options: '<options>' } }
+{ <field>: { $regex: 'pattern', $options: '<options>' } }
+{ <field>: { $regex: /pattern/<options> } }
+*/
+
+db.regexdemo.insertMany([
+    { "_id" : 100, "sku" : "abc123", "description" : "Single line description." },
+    { "_id" : 101, "sku" : "abc789", "description" : "First line\nSecond line" },
+    { "_id" : 102, "sku" : "xyz456", "description" : "Many spaces before     line" },
+    { "_id" : 103, "sku" : "xyz789", "description" : "Multiple\nline description" },
+])
+
+// * Perform a LIKE Match
+db.regexdemo.find( { sku: { $regex: /789$/ } } )
+/* 
+SELECT * FROM regexdemo WHERE sku like "%789";
+*/
+
+// * Perform Case-Insensitive Regular Expression Match
+db.products.find( { sku: { $regex: /^ABC/i } } )
