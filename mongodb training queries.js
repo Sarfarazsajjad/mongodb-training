@@ -1224,6 +1224,8 @@ db.orders.mapReduce(
 { <field>: { $regex: /pattern/, $options: '<options>' } }
 { <field>: { $regex: 'pattern', $options: '<options>' } }
 { <field>: { $regex: /pattern/<options> } }
+
+{ <field>: /pattern/<options> }
 */
 
 db.regexdemo.insertMany([
@@ -1240,4 +1242,39 @@ SELECT * FROM regexdemo WHERE sku like "%789";
 */
 
 // * Perform Case-Insensitive Regular Expression Match
-db.products.find( { sku: { $regex: /^ABC/i } } )
+db.regexdemo.find( { sku: { $regex: /^ABC/i } } )
+
+db.regexdemo.remove({})
+db.regexdemo.insertMany([
+    {"sms_text":"Im good what about you"},
+    {"sms_text":"I'm good what about you"},
+    {"sms_text":"Its is working fine"},
+    {"sms_text":"It's fine"},
+    {"sms_text":"It's working fine"},
+    {"sms_text":"It works fine"},
+    {"sms_text":"It is important"},
+    {"sms_text":"Its of higher importance"},
+    {"sms_text":"can you Query about that "},
+    {"sms_text":"what are the important queries"},
+    {"sms_text":"How about happiness"},
+    {"sms_text":"are you happy im very happy"},
+    ]);
+
+    db.regexdemo.find({sms_text:"It's working fine"})
+    db.regexdemo.find({sms_text:/It's working/})
+    db.regexdemo.find({sms_text:/query/})
+    db.regexdemo.find({sms_text:/QUERY/})
+    db.regexdemo.find({sms_text:/QUERY/i})
+    db.regexdemo.find({sms_text:{$regex:/QUERY/, $options:"i"}})
+    db.regexdemo.find({sms_text:{$regex:"QUERY", $options:"i"}})
+    db.regexdemo.find({sms_text:{$regex:"QUERY|about", $options:"i"}})
+    db.regexdemo.find({sms_text:{$regex:"[S]", $options:"i"}}) //single character search
+    db.regexdemo.find({sms_text:{$regex:"[S-Y]", $options:"i"}}) //character range search
+    db.regexdemo.find({sms_text:{$regex:"[5-8]", $options:"i"}}) //digits range search
+    db.regexdemo.find({sms_text:{$regex:"^what", $options:"i"}}) //search for starting word
+    db.regexdemo.find({sms_text:{$regex:"happy$", $options:"i"}}) //search for starting word
+    
+    // * match 0 or more
+    // + match 1 or more
+    // ? match 0 or 1
+    // .any character except newline
