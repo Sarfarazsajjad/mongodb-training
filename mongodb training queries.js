@@ -1171,3 +1171,46 @@ db.orders.mapReduce(
     reduceFunction1,
     { out: "map_reduce_example" }
   )
+
+  //Calculate Order and Total Quantity with Average Quantity Per Item
+
+  var mapFunction2 = function() {
+    for (var idx = 0; idx < this.items.length; idx++) {
+        var key = this.items[idx].sku;
+        var value = {
+                      count: 1,
+                      qty: this.items[idx].qty
+                    };
+        emit(key, value);
+    }
+ };
+
+ var reduceFunction2 = function(keySKU, countObjVals) {
+    reducedVal = { count: 0, qty: 0 };
+
+    for (var idx = 0; idx < countObjVals.length; idx++) {
+        reducedVal.count += countObjVals[idx].count;
+        reducedVal.qty += countObjVals[idx].qty;
+    }
+
+    return reducedVal;
+ };
+
+ var finalizeFunction2 = function (key, reducedVal) {
+
+    reducedVal.avg = reducedVal.qty/reducedVal.count;
+
+    return reducedVal;
+
+ };
+
+ db.orders.mapReduce( mapFunction2,
+    reduceFunction2,
+    {
+      out: { merge: "map_reduce_example" },
+      query: { ord_date:
+                 { $gt: new Date('01/01/2012') }
+             },
+      finalize: finalizeFunction2
+    }
+  )
