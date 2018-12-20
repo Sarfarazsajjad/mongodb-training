@@ -1103,7 +1103,71 @@ is included during the installation.
 
 On macOS, the installation does not include a default configuration file;
 instead, to use a configuration file, create a file.
-/*
+*/
 
 // !setting mongodb database location/path
 // https://docs.mongodb.com/manual/reference/configuration-options/#storage.dbPath
+
+//------------------------------------------------
+//! Map Reduce
+//------------------------------------------------
+// create a mapreduce database, and collection mpr
+
+db.mpr.insertMany([
+    {
+        cust_id: "abc123",
+        ord_date: new Date("Oct 04, 2012"),
+        status: 'A',
+        price: 23,
+        items: [{ sku: "mmm", qty: 5, price: 2.5 },
+        { sku: "nnn", qty: 5, price: 2.5 }]
+    },
+    {
+        cust_id: "abc123",
+        ord_date: new Date("Oct 04, 2012"),
+        status: 'A',
+        price: 33,
+        items: [{ sku: "mmm", qty: 5, price: 2.5 },
+        { sku: "nnn", qty: 5, price: 2.5 }]
+    },
+    {
+        cust_id: "abc123",
+        ord_date: new Date("Oct 04, 2012"),
+        status: 'A',
+        price: 56,
+        items: [{ sku: "mmm", qty: 5, price: 2.5 },
+        { sku: "nnn", qty: 5, price: 2.5 }]
+    },
+    {
+        cust_id: "abc122",
+        ord_date: new Date("Oct 04, 2012"),
+        status: 'A',
+        price: 88,
+        items: [{ sku: "mmm", qty: 5, price: 2.5 },
+        { sku: "nnn", qty: 5, price: 2.5 }]
+    },
+    {
+        cust_id: "abc122",
+        ord_date: new Date("Oct 04, 2012"),
+        status: 'A',
+        price: 6,
+        items: [{ sku: "mmm", qty: 5, price: 2.5 },
+        { sku: "nnn", qty: 5, price: 2.5 }]
+    },
+]);
+
+// Return the Total Price Per Customer
+
+var mapFunction1 = function() {
+    emit(this.cust_id, this.price);
+};
+
+var reduceFunction1 = function(keyCustId, valuesPrices) {
+    return Array.sum(valuesPrices);
+};
+
+db.orders.mapReduce(
+    mapFunction1,
+    reduceFunction1,
+    { out: "map_reduce_example" }
+  )
