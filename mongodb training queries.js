@@ -1278,3 +1278,29 @@ db.regexdemo.insertMany([
     // + match 1 or more
     // ? match 0 or 1
     // .any character except newline
+
+
+//------------------------------------------------
+//! Indexing
+//------------------------------------------------
+
+//select the northwind database
+
+db.orders.find({})
+db.orders.getIndexes();
+
+// https://docs.mongodb.com/manual/tutorial/analyze-query-plan/
+
+db.orders.find({
+    CustomerID:"VINET"
+})
+db.orders.find({
+    CustomerID:"VINET"
+}).explain("executionStats")
+
+db.orders.createIndex({CustomerID:1})
+
+//search again
+db.orders.find({
+    CustomerID:"VINET"
+}).explain("executionStats")
