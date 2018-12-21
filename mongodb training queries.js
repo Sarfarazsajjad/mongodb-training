@@ -1032,20 +1032,20 @@ db.webrank.aggregate([
 // *  mongod --shardsvr --port 10003 --dbpath c:\data\srd\db3
 
 //Mac or Linux
-// * sudo mongod --shardsvr --port 10001 --dbpath /data/srd/db1
-// * sudo mongod --shardsvr --port 10002 --dbpath /data/srd/db2
-// * sudo mongod --shardsvr --port 10003 --dbpath /data/srd/db3
+// * sudo mongod --shardsvr --port 10001 --dbpath ~/work/itretina/mongodemo/srd/db1
+// * sudo mongod --shardsvr --port 10002 --dbpath ~/work/itretina/mongodemo/srd/db2
+// * sudo mongod --shardsvr --port 10003 --dbpath ~/work/itretina/mongodemo/srd/db3
 
 //Start config Server
-// *  mongod.exe --configsvr --port 20000  --dbpath c:\data\configdb
+// *  mongod.exe --configsvr --port 20000  --dbpath c:\data\configdb --replSet "configrpl"
 // Mac or linux
-// * sudo mongod --configsvr --port 20000  --dbpath /data/srd/configdb --replSet "configrpl"
+// * sudo mongod --configsvr --port 20000  --dbpath ~/work/itretina/mongodemo/ --replSet "configrpl"
 
 // connect to the config server and initiate its replicaset
 rs.initiate()
 
 //Using mongos start the Query Router for the config server and specify the chunk size
-// *  mongos.exe --configdb localhost:20000 --port 20001
+// *  mongos.exe --configdb configrpl/localhost:20000 --port 20001
 // Mac or linux
 // *  sudo mongos --configdb configrpl/localhost:20000 --port 20001
 
@@ -1081,13 +1081,16 @@ for(i=0;i<50000;i++){
 // https://docs.mongodb.com/manual/replication/
 // https://docs.mongodb.com/manual/administration/replica-set-deployment/
 
-// * sudo mongod --port "3001" --dbpath "/replica-db1" --replSet "replication-test"
-// * sudo mongod --port "3002" --dbpath "/replica-db2" --replSet "replication-test"
+// * sudo mongod --port "3001" --dbpath "/Users/Sarfaraz/work/itretina/mongodemo/replica-db1" --replSet "replication-test"
+// * sudo mongod --port "3002" --dbpath "/Users/Sarfaraz/work/itretina/mongodemo/replica-db2" --replSet "replication-test"
+// * sudo mongod --port "3003" --dbpath "/Users/Sarfaraz/work/itretina/mongodemo/replica-db3" --replSet "replication-test"
 
 //connect robo3t to the first instance and add the other
 rs.initiate()
 rs.status()
 rs.add("localhost:3002")
+//incase you have even number of replicas you need to add a arbiter to make odd numbers
+rs.addArb("m1.example.net:27017")
 
 
 //------------------------------------------------
