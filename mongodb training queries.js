@@ -1304,3 +1304,20 @@ db.orders.createIndex({CustomerID:1})
 db.orders.find({
     CustomerID:"VINET"
 }).explain("executionStats")
+
+db.orders.dropIndex({CustomerID:1})
+
+
+//------------------------------------------------
+//! TTL Index
+//------------------------------------------------
+// https://docs.mongodb.com/manual/core/index-ttl/
+
+db.log_events.insert({
+    "createdAt": new Date(),
+    "logEvent": 2,
+    "logMessage":"Success"
+})
+
+db.log_events.createIndex({ "createdAt": 1},{ expireAfterSeconds:100})
+db.log_events.find();
