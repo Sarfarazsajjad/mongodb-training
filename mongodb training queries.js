@@ -1321,3 +1321,20 @@ db.log_events.insert({
 
 db.log_events.createIndex({ "createdAt": 1},{ expireAfterSeconds:100})
 db.log_events.find();
+
+
+//------------------------------------------------
+//! Capped Collection
+//------------------------------------------------
+// https://docs.mongodb.com/manual/core/capped-collections/
+
+db.createCollection( "regular" )
+db.createCollection( "capped", { capped: true, size: 1024, max:5 } )
+
+for(let i=0;i<100;i++){
+    db.capped.insert({"name":"x"+i,"age":i+10})
+}
+
+
+db.capped.find ({name:"x99"})
+db.capped.deleteOne({name:"x99"})
